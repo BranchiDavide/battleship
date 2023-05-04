@@ -1,0 +1,39 @@
+#battleshipMainTable{
+    border: 1px soild black;
+    border-collapse: collapse;
+}
+#battleshipMainTable th, #battleshipMainTable td{
+    border: 1px solid black;
+    border-collapse: collapse;
+    width: 30px;
+    height: 30px;
+}
+.ships{
+    width: 50%;
+    background-color: rgb(225, 225, 225);
+    overflow: hidden;
+}
+.shipTable{
+    border: 1px black solid;
+    border-collapse: collapse;
+}
+.shipTable td{
+    border: 1px black solid;
+    border-collapse: collapse;
+    width: 30px;
+    height: 30px;
+}
+[class*="ship-"]{
+    float: left;
+    margin: 20px;
+}
+.ship-selected{
+    transition: 0.3s ease-in-out;
+    box-shadow: 5px 5px 5px 0px #505050, inset 4px 4px 15px 0px #000000, 5px 5px 15px 5px rgba(0,0,0,0);
+}
+.boat-cell{
+    background-color: rgb(21, 189, 255);
+}
+.boat-cell-placed{
+    background-color: rgba(21, 189, 255, 0.278);
+}
