@@ -1,5 +1,6 @@
 let mainTable = document.getElementById("battleshipMainTable");
 let ships = document.querySelectorAll(`[class*="ship-"]`);
+let removeIcons = document.getElementsByClassName("removeImg");
 let shipSelected = ships[0];
 let mtTr = [];
 let mtTd = [];
@@ -9,6 +10,11 @@ let shipPlace = false;
 let placeIndex = 0;
 let shipSelectedTd = [];
 let placedShips = [];
+let placedCoords = [];
+let rmIndex = 0;
+for(let i = 0; i < ships.length; i++){
+    placedCoords.push([]);
+}
 for(let i = 0; i < 10; i++){
     mtTd.push([]);
     actualTable.push([]);
@@ -35,24 +41,26 @@ for(let row of mainTable.getElementsByTagName("tr")){
 //Box-shadow when ship is selected
 shipSelected.classList.add("ship-selected");
 for(let ship of ships){
-    ship.addEventListener("click", function(){
-        let validShip = true;
-        for(let shipP of placedShips){
-            if(ship == shipP){
-                validShip = false;
+    ship.addEventListener("click", function(event){
+        if(event.target.tagName != "IMG"){
+            let validShip = true;
+            for(let shipP of placedShips){
+                if(ship == shipP){
+                    validShip = false;
+                }
             }
-        }
-        if(!shipPlace && validShip){
-            if(shipSelected != ""){
-                shipSelected.classList.remove("ship-selected");
-            }
-            shipSelected = ship;
-            shipSelected.classList.add("ship-selected");
-        }else{
-            if(!validShip){
-                alert("Ship already placed");
+            if(!shipPlace && validShip){
+                if(shipSelected != ""){
+                    shipSelected.classList.remove("ship-selected");
+                }
+                shipSelected = ship;
+                shipSelected.classList.add("ship-selected");
             }else{
-                alert("You have to place the ship before");
+                if(!validShip){
+                    alert("Ship already placed");
+                }else{
+                    alert("You have to place the ship before");
+                }
             }
         }
     });
@@ -79,13 +87,21 @@ function placeShipEvent(i,j){
                 for(let td of shipSelectedTable){
                     shipSelectedTd.push(td);
                 }
+                for(let c = 0; c < ships.length; c++){
+                    if(ships[c] == shipSelected){
+                        rmIndex = c;
+                    }
+                }
+                removeIcons[rmIndex].style.display = "block";
             }
             if(lastPlaceCoords.length == 0){
                 place(i,j);
+                placedCoords[rmIndex].push(i,j);
             }else{
                 if(lastPlaceCoords.length == 2){
                     if((Math.abs(i - lastPlaceCoords[0]) == 1 && j == lastPlaceCoords[1]) || Math.abs(j - lastPlaceCoords[1]) == 1 && i == lastPlaceCoords[0]){
                         place(i,j);
+                        placedCoords[rmIndex].push(i,j);
                     }else{
                         alert("Invalid position");
                     }
@@ -103,6 +119,7 @@ function placeShipEvent(i,j){
                         if(j == lastPlaceCoords[lastPlaceCoords.length -1] && validI){
                             if(actualTable[i][j] == ""){
                                 place(i,j);
+                                placedCoords[rmIndex].push(i,j);
                             }else{
                                 alert("Invalid position");
                             }
@@ -122,6 +139,7 @@ function placeShipEvent(i,j){
                         if(i == lastPlaceCoords[lastPlaceCoords.length -2] && validJ){
                             if(actualTable[i][j] == ""){
                                 place(i,j);
+                                placedCoords[rmIndex].push(i,j);
                             }else{
                                 alert("Invalid position");
                             }
@@ -159,4 +177,39 @@ function place(i,j){
     shipSelectedTd[placeIndex].classList.remove("boat-cell");
     shipSelectedTd[placeIndex].classList.add("boat-cell-placed");
     placeIndex++;
+}
+//Setting remove icon listeners
+for(let i = 0; i < removeIcons.length; i++){
+    removeIcons[i].addEventListener("click", function(){
+        if(rmIndex == i || !shipPlace){
+            removeShip(i);
+            removeIcons[i].style.display = "none";
+        }else{
+            alert("Finish placing the current ship before removing another");
+        }
+    });
+}
+//Function for removing a ship
+function removeShip(index){
+    let removeCoords = placedCoords[index];
+    placedCoords[index] = [];
+    for(let i = 0; i < removeCoords.length; i+=2){
+        let row = removeCoords[i];
+        let colum = removeCoords[i+1];
+        mtTd[row][colum].classList.remove("boat-cell");
+        let restoreShipTd = ships[index].getElementsByTagName("table")[0].getElementsByTagName("tr")[0].getElementsByTagName("td");
+        for(let cell of restoreShipTd){
+            cell.classList.remove("boat-cell-placed");
+            cell.classList.add("boat-cell");
+        }
+        actualTable[row][colum] = "";
+    }
+    let newPlacedShips = [];
+    for(let i = 0; i < placedShips.length; i++) {
+        if(ships[index] != placedShips[i]){
+            newPlacedShips.push(placedShips[i]);
+        }
+    }
+    placedShips = newPlacedShips;
+    shipPlace = false;
 }

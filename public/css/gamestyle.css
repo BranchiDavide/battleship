@@ -16,6 +16,7 @@
 .shipTable{
     border: 1px black solid;
     border-collapse: collapse;
+    float: left;
 }
 .shipTable td{
     border: 1px black solid;
@@ -36,4 +37,9 @@
 }
 .boat-cell-placed{
     background-color: rgba(21, 189, 255, 0.278);
+}
+.removeImg{
+    float: right;
+    margin-top: 2px;
+    display: none;
 }
