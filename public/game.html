@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="css/gamestyle.css">
     <link rel="stylesheet" href="css/sweetalert.css">
     <script src="js/sweetalert.js"></script>
-    <script src="/socket.io/socket.io.js"></script>
     <title>Battleship - Game</title>
 </head>
 <body>
@@ -91,7 +90,10 @@
         </div>
     </div>
     <br>
-    <br>
+    <div class="timerDiv">
+        <h2>Timer:</h2>
+        <h4 id="timerCount"></h4>
+    </div>
     <br>
     <br>
     <div class="tablesDiv">
@@ -391,6 +393,7 @@
             Waiting for another player...
         </h1>
     </div>
+    <script src="/socket.io/socket.io.js"></script>
     <script src="js/battleship-init.js"></script>
     <script src="js/battleship-game.js"></script>
 </body>

@@ -52,11 +52,14 @@
 }
 .tablesDiv {
   width: 100%;
+  position: relative;
 }
 #battleshipMainTable {
+  left: 0;
   margin-left: 20%;
 }
 #battleshipOpponentTable {
+  right: 0;
   margin-right: 20%;
   margin-left: 10%;
 }
@@ -80,5 +83,23 @@
   justify-content: center;
 }
 #cover h1{
-    font-family: "ArchivoBlack-Regular";
+  font-family: "ArchivoBlack-Regular";
+}
+.timerDiv{
+  display: none;
+  width: 100%;
+}
+.timerDiv h2, .timerDiv h4{
+  font-family: "ArchivoBlack-Regular";
+  width: 100%;
+  text-align: center;
+}
+.green-span{
+  color: green;
+}
+.orange-span{
+  color: orange;
+}
+.red-span{
+  color: red;
 }

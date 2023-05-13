@@ -14,9 +14,11 @@ function startGame(socket1, socket2, io){
 function setDisconnectEvent(){
     player1.on("disconnect", () =>{
         player2.emit("opponent-disconnect");
+        player2.disconnect();
     });
     player2.on("disconnect", () =>{
         player1.emit("opponent-disconnect");
+        player1.disconnect();
     });
 }
 module.exports = { startGame };
