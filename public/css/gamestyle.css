@@ -2,7 +2,7 @@
 #battleshipOpponentTable {
   border: 1px soild black;
   border-collapse: collapse;
-  float: left;
+  margin: auto;
 }
 #battleshipMainTable th,
 #battleshipMainTable td,
@@ -55,13 +55,10 @@
   position: relative;
 }
 #battleshipMainTable {
-  left: 0;
-  margin-left: 20%;
+  margin-right: 20%;
 }
 #battleshipOpponentTable {
-  right: 0;
-  margin-right: 20%;
-  margin-left: 10%;
+  margin-left: 20%;
 }
 
 @font-face{
@@ -79,14 +76,16 @@
   background: #aaaaaab9;
   z-index: 10;
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
 }
 #cover h1{
   font-family: "ArchivoBlack-Regular";
+  font-size: 40px;
+  color: rgb(0, 94, 117);
 }
 .timerDiv{
-  display: none;
+  visibility: hidden;
   width: 100%;
 }
 .timerDiv h2, .timerDiv h4{
@@ -102,4 +101,40 @@
 }
 .red-span{
   color: red;
+}
+.div-tb1, .div-tb2{
+  width: 50%;
+  float: left;
+}
+.miss-cell{
+  background-image: linear-gradient(45deg, #0099ff 25%, #ffffff 25%, #ffffff 50%, #0099ff 50%, #0099ff 75%, #ffffff 75%, #ffffff 100%);
+  background-size: 8.49px 8.49px;
+}
+.hit-cell{
+  background-image: url("../img/hit-cell.png");
+  background-size: contain;
+}
+@font-face{
+  src: url("../fonts/DMSans-Regular.ttf");
+  font-family: "DMSans-Regular";
+}
+.status-div-main{
+  text-align: center;
+}
+.status-div-opponent{
+  text-align: center;
+}
+.status-desc, .status-span{
+  font-size: 18px;
+  font-family: "DMSans-Regular";
+}
+.status-span{
+  margin-left: 25px;
+  font-weight: bold;
+  padding: 5px 20px 5px 20px;
+  box-shadow: -5px 5px 13px 2px rgba(255,65,61,0.6);
+  border-radius: 20px;
+}
+.status-div-main .status-span:hover{
+  cursor: pointer;
 }

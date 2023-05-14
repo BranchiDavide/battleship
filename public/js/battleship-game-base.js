@@ -2,6 +2,7 @@ function opponentDisconnect() {
     if (redirectionTime > 0) {
         cover.getElementsByTagName("h1")[0].innerHTML = `The opponent has disconnected<br>Redirection to homepage in ${redirectionTime}s`;
         cover.getElementsByTagName("h1")[0].style.color = "red";
+        cover.getElementsByTagName("img")[0].style.display = "none";
         cover.style.display = "flex";
         redirectionTime--;
     } else {
