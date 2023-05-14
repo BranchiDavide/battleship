@@ -99,11 +99,15 @@ function placeShipEvent(i, j) {
                         rmIndex = c;
                     }
                 }
-                removeIcons[rmIndex].style.display = "block";
             }
             if (lastPlaceCoords.length == 0) {
-                place(i, j);
-                placedCoords[rmIndex].push(i, j);
+                if (actualTable[i][j] == "") {
+                    place(i, j);
+                    placedCoords[rmIndex].push(i, j);
+                    removeIcons[rmIndex].style.display = "block";
+                } else {
+                    alert("Invalid position");
+                }
             } else {
                 if (lastPlaceCoords.length == 2) {
                     if (
@@ -111,16 +115,17 @@ function placeShipEvent(i, j) {
                             j == lastPlaceCoords[1]) ||
                         (Math.abs(j - lastPlaceCoords[1]) == 1 && i == lastPlaceCoords[0])
                     ) {
-                        place(i, j);
-                        placedCoords[rmIndex].push(i, j);
+                        if (actualTable[i][j] == "") {
+                            place(i, j);
+                            placedCoords[rmIndex].push(i, j);
+                        } else {
+                            alert("Invalid position");
+                        }
                     } else {
                         alert("Invalid position");
                     }
                 } else {
-                    if (
-                        lastPlaceCoords[lastPlaceCoords.length - 1] ==
-                        lastPlaceCoords[lastPlaceCoords.length - 3]
-                    ) {
+                    if (lastPlaceCoords[lastPlaceCoords.length - 1] == lastPlaceCoords[lastPlaceCoords.length - 3]) {
                         //The ship is orientated vertically
                         let validI = false;
                         for (let c = 0; c < lastPlaceCoords.length; c++) {
@@ -172,10 +177,6 @@ function placeShipEvent(i, j) {
                     }
                 }
                 shipSelected = "";
-                if (placedShips.length == ships.length) {
-                    //All the ships have been placed
-                    console.log(actualTable);
-                }
             }
         } else {
             alert("Please select a ship");
