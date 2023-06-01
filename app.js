@@ -1,5 +1,5 @@
 const express = require('express');
-const game = require("./gamemodule");
+const Game = require("./gamemodule");
 const app = express();
 const http = require('http');
 const server = http.createServer(app);
@@ -23,7 +23,7 @@ io.on('connection', (socket) => {
     sockets.push(socket);
     if(sockets.length == 2){
         //Two players connected, the game starts
-        game.startGame(sockets[0], sockets[1], io);
+        const newG = new Game(sockets[0], sockets[1], io);
         sockets = [];
     }
     socket.on("disconnect", () =>{

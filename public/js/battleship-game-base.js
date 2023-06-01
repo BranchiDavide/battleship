@@ -1,3 +1,6 @@
+let opponentTable = document.getElementById("battleshipOpponentTable");
+let oTd = [];
+let actualOpponentTable = [];
 function opponentDisconnect() {
     if (redirectionTime > 0) {
         cover.getElementsByTagName("h1")[0].innerHTML = `The opponent has disconnected<br>Redirection to homepage in ${redirectionTime}s`;
@@ -262,4 +265,53 @@ function placeShip(i, j) {
         return false;
     }
     return true;
+}
+let turnTimerTime = 10;
+function setOpponentTableListeners(){
+    let trs = opponentTable.getElementsByTagName("tr");
+    let tmpI = 0;
+    for(let row of trs){
+        oTd.push([]);
+        actualOpponentTable.push([]);
+        let tds = row.getElementsByTagName("td");
+        for(let td of tds){
+            oTd[tmpI].push(td);
+            actualOpponentTable[tmpI].push("");
+        }
+        tmpI++;
+    }
+    oTd.shift();
+    actualOpponentTable.shift();
+    for(let i = 0; i < oTd.length; i++){
+        for(let j = 0; j < oTd[i].length; j++){
+            oTd[i][j].addEventListener("click", ()=>{
+                if(turn){
+                    if(actualOpponentTable[i][j] == ""){
+                        cellSelected.push(i);
+                        cellSelected.push(j);
+                        actualOpponentTable[i][j] = "X";
+                        turnTimerTime = 0;
+                    }else{
+                        alert("Cell already selected");
+                    }
+                }else{
+                    alert("Please wait for your turn");
+                }
+            });
+        }
+    }
+}
+function turnTimer(){
+    if(turnTimerTime > 0){
+        timer.style.visibility = "visible";
+        timer.innerHTML = `You have <span class="red-span">${turnTimerTime}</span> to make your move!`;
+        turnTimerTime--;
+    }else{
+        timer.style.visibility = "hidden";
+        timerH.innerHTML = "Opponent turn!";
+        timerH.style.color = "red";
+        turn = false;
+        sendTurnData();
+        clearInterval(turnInterval);
+    }
 }
