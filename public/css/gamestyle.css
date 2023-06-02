@@ -107,10 +107,11 @@
   float: left;
 }
 .miss-cell{
-  background-image: linear-gradient(45deg, #0099ff 25%, #ffffff 25%, #ffffff 50%, #0099ff 50%, #0099ff 75%, #ffffff 75%, #ffffff 100%);
+  background-image: linear-gradient(45deg, #00e5ff 25%, #ffffff 25%, #ffffff 50%, #00e5ff 50%, #00e5ff 75%, #ffffff 75%, #ffffff 100%);
   background-size: 8.49px 8.49px;
 }
 .hit-cell{
+  background-color: rgb(255, 209, 122);
   background-image: url("../img/hit-cell.png");
   background-size: contain;
 }

@@ -44,14 +44,16 @@ module.exports = class Game{
             this.player1.disconnect();
         });
     }
-    effectiveGameStart(){
-        this.player1.on("start-data", (player1Table) =>{
-            this.player1Table = player1Table;
+    async effectiveGameStart(){
+        this.player1.emit("request-start-data");
+        await this.waitForResponse(this.player1, "start-data").then((response) => {
+            this.player1Table = response;
         });
-        this.player2.on("start-data", (player2Table) =>{
-            this.player2Table = player2Table;
-            this.gameLoop();
+        this.player2.emit("request-start-data");
+        await this.waitForResponse(this.player2, "start-data").then((response) => {
+            this.player2Table = response;
         });
+        this.gameLoop();
     }
     waitForResponse(socket, event) {
         return new Promise((resolve, reject) => {
@@ -67,16 +69,44 @@ module.exports = class Game{
             if(turnSwitch){
                 this.player1.emit("turn");
                 await this.waitForResponse(this.player1, "turn-data").then((response) => {
-                    console.log(response);
-                  });
+                    if(response.length != 0){
+                        let cellResult =  this.checkCellPlayer2(response[0], response[1]);
+                        this.player1.emit("turn-data-response", cellResult);
+                        response.push(cellResult);
+                        this.player2.emit("mark-mtTd", response);
+                    }
+                });
                 turnSwitch = !turnSwitch;
             }else{
                 this.player2.emit("turn");
                 await this.waitForResponse(this.player2, "turn-data").then((response) => {
-                    console.log(response);
-                  });
+                    if(response.length != 0){
+                        let cellResult = this.checkCellPlayer1(response[0], response[1]);
+                        this.player2.emit("turn-data-response", cellResult);
+                        response.push(cellResult);
+                        this.player1.emit("mark-mtTd", response);
+                    }
+                });
                 turnSwitch = !turnSwitch;
             }
+        }
+    }
+    checkCellPlayer1(i, j){
+        if(this.player1Table[i][j] == "X"){
+            this.player1Table[i][j] = "*";
+            return "hit-cell";
+        }else{
+            this.player1Table[i][j] = "M";
+            return "miss-cell";
+        }
+    }
+    checkCellPlayer2(i, j){
+        if(this.player2Table[i][j] == "X"){
+            this.player2Table[i][j] = "*";
+            return "hit-cell";
+        }else{
+            this.player2Table[i][j] = "M";
+            return "miss-cell";
         }
     }
 }

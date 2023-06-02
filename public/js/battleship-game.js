@@ -60,10 +60,16 @@ socket.on("opponent-ready", () =>{
 });
 socket.on("effective-game-start", () =>{
     placeTime = 0;
-    socket.emit("start-data", actualTable);
     statusDivs[0].style.display = "none";
     statusDivs[1].style.display = "none";
     setOpponentTableListeners();
+});
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+socket.on("request-start-data", async () =>{
+    await sleep(500);
+    socket.emit("start-data", actualTable);
     timerH.innerHTML = "Opponent turn!";
     timerH.style.color = "red";
 });
@@ -74,6 +80,12 @@ socket.on("turn", () =>{
     timerH.innerHTML = "Is your turn!";
     timerH.style.color = "green";
     turnInterval = setInterval(turnTimer, 1000);
+});
+socket.on("turn-data-response", (data) =>{
+    oTd[cellSelected[0]][cellSelected[1]].classList.add(data);
+});
+socket.on("mark-mtTd", (response) =>{
+    mtTd[response[0]][response[1]].classList.add(response[2]);
 });
 function sendTurnData(){
     socket.emit("turn-data", cellSelected);
