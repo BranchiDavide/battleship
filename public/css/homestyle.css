@@ -1,0 +1,67 @@
+.blue-span {
+  color: blue;
+}
+.orange-span {
+  color: orange;
+}
+#btn-plo {
+  padding: 10px 20px;
+  font-size: 16px;
+  color: white;
+  background-color: orange;
+  border-radius: 5px;
+  border: none;
+  box-shadow: 0 0 10px rgba(255, 165, 0);
+  animation: pulse 2s ease-in-out infinite;
+  transition: transform 0.3s ease-in-out;
+  font-family: "PermanentMarker-Regular";
+  font-size: 20px;
+}
+
+#btn-plo:hover {
+  opacity: 0.7;
+  cursor: pointer;
+  transition: 0.5s ease-in-out;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 10px rgba(255, 165, 0);
+  }
+  50% {
+    transform: scale(1.5);
+    box-shadow: 0 0 20px rgba(255, 165, 0);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 10px rgba(255, 165, 0);
+  }
+}
+@font-face {
+  src: url("../fonts/PermanentMarker-Regular.ttf");
+  font-family: "PermanentMarker-Regular";
+}
+.rotated-image {
+  font-family: "PermanentMarker-Regular";
+  font-size: 26px;
+  width: 500px;
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-image: url("../img/homebg.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+  }
