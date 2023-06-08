@@ -4,8 +4,16 @@ const app = express();
 const http = require('http');
 const server = http.createServer(app);
 const {Server} = require('socket.io');
+const {instrument} = require("@socket.io/admin-ui");
 const port = 80;
 const io = new Server(server);
+instrument(io, {
+    auth: {
+        type: "basic",
+        username: "admin",
+        password: require('bcrypt').hashSync("Admin$00", 10)
+    }
+});  
 app.use(express.static(__dirname + '/public'));
 app.get('/', (req, res) =>{
     res.sendFile(`${__dirname}/public/index.html`);
