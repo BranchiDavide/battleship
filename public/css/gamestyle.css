@@ -175,3 +175,27 @@
     margin-right: 5%;
   }
 }
+.end-div{
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  background-color: white;
+  width: 40%;
+  height: 30%;
+  z-index: 1000;
+  font-family: "DMSans-Regular";
+  text-align: center;
+  -webkit-box-shadow: 0px 1px 15px 5px #CDE8FF; 
+  box-shadow: 0px 1px 15px 5px #CDE8FF;
+  padding-top: 20px;
+}
+.end-div h4 a{
+  color: blue;
+  text-decoration: none;
+}
+.end-div h4 a:hover{
+  opacity: 0.6;
+}
