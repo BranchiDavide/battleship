@@ -292,10 +292,10 @@ function setOpponentTableListeners(){
                         actualOpponentTable[i][j] = "X";
                         turnTimerTime = 0;
                     }else{
-                        alert("Cell already selected");
+                        showErrorAlert("Cell already selected");
                     }
                 }else{
-                    alert("Please wait for your turn");
+                    showWarningAlert("Please wait for your turn");
                 }
             });
         }

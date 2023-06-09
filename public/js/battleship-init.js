@@ -62,9 +62,9 @@ function shipSelectionListener(event) {
             shipSelected.classList.add("ship-selected");
         } else {
             if (!validShip) {
-                alert("Ship already placed");
+                showErrorAlert("Ship already placed");
             } else {
-                alert("You have to place the ship before");
+                showWarningAlert("You have to place the ship before");
             }
         }
     }
@@ -106,7 +106,7 @@ function placeShipEvent(i, j) {
                     placedCoords[rmIndex].push(i, j);
                     removeIcons[rmIndex].style.display = "block";
                 } else {
-                    alert("Invalid position");
+                    showErrorAlert("Invalid position");
                 }
             } else {
                 if (lastPlaceCoords.length == 2) {
@@ -119,10 +119,10 @@ function placeShipEvent(i, j) {
                             place(i, j);
                             placedCoords[rmIndex].push(i, j);
                         } else {
-                            alert("Invalid position");
+                            showErrorAlert("Invalid position");
                         }
                     } else {
-                        alert("Invalid position");
+                        showErrorAlert("Invalid position");
                     }
                 } else {
                     if (lastPlaceCoords[lastPlaceCoords.length - 1] == lastPlaceCoords[lastPlaceCoords.length - 3]) {
@@ -140,10 +140,10 @@ function placeShipEvent(i, j) {
                                 place(i, j);
                                 placedCoords[rmIndex].push(i, j);
                             } else {
-                                alert("Invalid position");
+                                showErrorAlert("Invalid position");
                             }
                         } else {
-                            alert("Invalid position");
+                            showErrorAlert("Invalid position");
                         }
                     } else {
                         //The ship is orientated horizontally
@@ -160,10 +160,10 @@ function placeShipEvent(i, j) {
                                 place(i, j);
                                 placedCoords[rmIndex].push(i, j);
                             } else {
-                                alert("Invalid position");
+                                showErrorAlert("Invalid position");
                             }
                         } else {
-                            alert("Invalid position");
+                            showErrorAlert("Invalid position");
                         }
                     }
                 }
@@ -179,7 +179,7 @@ function placeShipEvent(i, j) {
                 shipSelected = "";
             }
         } else {
-            alert("Please select a ship");
+            showWarningAlert("Please select a ship");
         }
     };
 }
@@ -200,7 +200,7 @@ for (let i = 0; i < removeIcons.length; i++) {
             removeShip(i);
             removeIcons[i].style.display = "none";
         } else {
-            alert("Finish placing the current ship before removing another");
+            showWarningAlert("Finish placing the current ship before removing another");
         }
     });
 }
