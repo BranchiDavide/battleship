@@ -1,10 +1,14 @@
 let socket = io();
 let cover = document.getElementById("cover");
+let coverH1 = cover.getElementsByTagName("h1")[0];
+let coverImg = cover.getElementsByTagName("img")[0];
 let timer = document.getElementById("timerCount");
 let timerDiv = document.getElementsByClassName("timerDiv")[0];
 let timerH = timerDiv.getElementsByTagName("h2")[0];
 let readyBtn = document.getElementsByClassName("status-span")[0];
 let readyBtnOpponent = document.getElementsByClassName("status-span")[1];
+let winDiv = document.getElementById("winDiv");
+let loseDiv = document.getElementById("loseDiv");
 let placeTime = 60; // Time to place the ships (in s)
 let placeTimerInterval;
 let turn = false;
@@ -90,3 +94,17 @@ socket.on("mark-mtTd", (response) =>{
 function sendTurnData(){
     socket.emit("turn-data", cellSelected);
 }
+socket.on("win", () =>{
+    coverH1.style.display = "none";
+    timerDiv.visibility = "hidden";
+    coverImg.style.display = "none";
+    cover.style.display = "flex";
+    winDiv.style.display = "block";
+});
+socket.on("lose", () =>{
+    coverH1.style.display = "none";
+    timerDiv.visibility = "hidden";
+    coverImg.style.display = "none";
+    cover.style.display = "flex";
+    loseDiv.style.display = "block";
+});

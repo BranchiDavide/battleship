@@ -74,6 +74,11 @@ module.exports = class Game{
                         this.player1.emit("turn-data-response", cellResult);
                         response.push(cellResult);
                         this.player2.emit("mark-mtTd", response);
+                        if(this.checkWinForPlayer1()){
+                            this.player1.emit("win");
+                            this.player2.emit("lose");
+                            gameVaild = false;
+                        }
                     }
                 });
                 turnSwitch = !turnSwitch;
@@ -85,6 +90,11 @@ module.exports = class Game{
                         this.player2.emit("turn-data-response", cellResult);
                         response.push(cellResult);
                         this.player1.emit("mark-mtTd", response);
+                        if(this.checkWinForPlayer2()){
+                            this.player2.emit("win");
+                            this.player1.emit("lose");
+                            gameVaild = false;
+                        }
                     }
                 });
                 turnSwitch = !turnSwitch;
@@ -108,5 +118,27 @@ module.exports = class Game{
             this.player2Table[i][j] = "M";
             return "miss-cell";
         }
+    }
+    checkWinForPlayer1(){
+        let win = true;
+        for(let i = 0; i < this.player2Table.length; i++){
+            for(let j = 0; j < this.player2Table[i].length; j++){
+                if(this.player2Table[i][j] == "X"){
+                    win = false;
+                }
+            }
+        }
+        return win;
+    }
+    checkWinForPlayer2(){
+        let win = true;
+        for(let i = 0; i < this.player1Table.length; i++){
+            for(let j = 0; j < this.player1Table[i].length; j++){
+                if(this.player1Table[i][j] == "X"){
+                    win = false;
+                }
+            }
+        }
+        return win;
     }
 }
