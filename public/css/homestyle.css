@@ -30,7 +30,7 @@
     box-shadow: 0 0 10px rgba(255, 165, 0);
   }
   50% {
-    transform: scale(1.5);
+    transform: scale(1.2);
     box-shadow: 0 0 20px rgba(255, 165, 0);
   }
   100% {
@@ -54,14 +54,22 @@
   position: relative;
 }
 body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  background-image: url("../img/homebg.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
+}
+@media only screen and (max-width: 768px) {
+  .rotated-image{
+    margin: 0;
+    width: 100%;
     display: flex;
     justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-    background-image: url("../img/homebg.jpg");
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-attachment: fixed;
   }
+}

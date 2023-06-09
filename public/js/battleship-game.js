@@ -51,7 +51,7 @@ readyBtn.addEventListener("click", function readyEvent(){
         socket.emit("ready");
         this.removeEventListener("click", readyEvent);
     }else{
-        alert("You have to place all ships before getting ready");
+        showWarningAlert("You have to place all ships before getting ready");
     }
 });
 socket.on("opponent-ready", () =>{

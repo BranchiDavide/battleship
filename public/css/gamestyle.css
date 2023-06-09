@@ -61,81 +61,117 @@
   margin-left: 20%;
 }
 
-@font-face{
-    font-family: "ArchivoBlack-Regular";
-    src: url("../fonts/ArchivoBlack-Regular.ttf");
+@font-face {
+  font-family: "ArchivoBlack-Regular";
+  src: url("../fonts/ArchivoBlack-Regular.ttf");
 }
 
 #cover {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  opacity: 0.8;
-  background: #aaaaaab9;
-  z-index: 10;
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 100%;
+  height: 100%;
+  background: #c2c1c180;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
 }
-#cover h1{
+#cover h1 {
   font-family: "ArchivoBlack-Regular";
   font-size: 40px;
   color: rgb(0, 94, 117);
 }
-.timerDiv{
+.timerDiv {
   visibility: hidden;
   width: 100%;
 }
-.timerDiv h2, .timerDiv h4{
+.timerDiv h2,
+.timerDiv h4 {
   font-family: "ArchivoBlack-Regular";
   width: 100%;
   text-align: center;
 }
-.green-span{
+.green-span {
   color: green;
 }
-.orange-span{
+.orange-span {
   color: orange;
 }
-.red-span{
+.red-span {
   color: red;
 }
-.div-tb1, .div-tb2{
+.div-tb1,
+.div-tb2 {
   width: 50%;
   float: left;
 }
-.miss-cell{
-  background-image: linear-gradient(45deg, #00e5ff 25%, #ffffff 25%, #ffffff 50%, #00e5ff 50%, #00e5ff 75%, #ffffff 75%, #ffffff 100%);
+.miss-cell {
+  background-image: linear-gradient(
+    45deg,
+    #00e5ff 25%,
+    #ffffff 25%,
+    #ffffff 50%,
+    #00e5ff 50%,
+    #00e5ff 75%,
+    #ffffff 75%,
+    #ffffff 100%
+  );
   background-size: 8.49px 8.49px;
 }
-.hit-cell{
+.hit-cell {
   background-color: rgb(255, 209, 122);
   background-image: url("../img/hit-cell.png");
   background-size: contain;
 }
-@font-face{
+@font-face {
   src: url("../fonts/DMSans-Regular.ttf");
   font-family: "DMSans-Regular";
 }
-.status-div-main{
+.status-div-main {
   text-align: center;
 }
-.status-div-opponent{
+.status-div-opponent {
   text-align: center;
 }
-.status-desc, .status-span{
+.status-desc,
+.status-span {
   font-size: 18px;
   font-family: "DMSans-Regular";
 }
-.status-span{
+.status-span {
   margin-left: 25px;
   font-weight: bold;
   padding: 5px 20px 5px 20px;
-  box-shadow: -5px 5px 13px 2px rgba(255,65,61,0.6);
+  box-shadow: -5px 5px 13px 2px rgba(255, 65, 61, 0.6);
   border-radius: 20px;
 }
-.status-div-main .status-span:hover{
+.status-div-main .status-span:hover {
   cursor: pointer;
+}
+@media only screen and (max-width: 768px) {
+  .div-tb1,
+  .div-tb2 {
+    width: 100%;
+  }
+  .div-tb2 {
+    float: left;
+  }
+  #battleshipOpponentTable,
+  #battleshipMainTable {
+    margin: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+  .status-div-opponent {
+    margin-top: 5%;
+  }
+  #cover h1{
+    margin-left: 5%;
+  }
+  #cover img{
+    margin-right: 5%;
+  }
 }
