@@ -2161,3 +2161,6 @@ function showErrorAlert(message){
 function showWarningAlert(message){
   new swal(message, "", "warning");
 }
+function showErrorAlertSub(message, sub){
+  new swal(message, sub, "error");
+}

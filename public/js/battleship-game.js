@@ -1,5 +1,7 @@
-let socket = io();
+let socket = io({query:{room: sessionStorage.getItem("room"), join: sessionStorage.getItem("join")}});
 let cover = document.getElementById("cover");
+let roomDiv = document.getElementsByClassName("roomDiv")[0];
+let roomSpan = document.getElementsByClassName("roomSpan")[0];
 let coverH1 = cover.getElementsByTagName("h1")[0];
 let coverImg = cover.getElementsByTagName("img")[0];
 let timer = document.getElementById("timerCount");
@@ -18,6 +20,16 @@ let statusDivs = document.querySelectorAll(`[class^="status-div"`);
 socket.on("game-start", () => {
     cover.style.display = "none";
     placeTimerInterval = setInterval(placeTimer, 1000);
+});
+socket.on("room-number", (roomNumber) => {
+    roomDiv.style.display = "block";
+    roomSpan.innerHTML = roomNumber;
+});
+socket.on("404-room", (roomNumber) => {
+    showErrorAlertSub("Room " + roomNumber + " not found!", "Redirection to homepage in 5s");
+    setTimeout(() =>{
+        window.location.href = "/";
+    }, 5000);
 });
 let redirectionTime = 5;
 let redirectInterval;

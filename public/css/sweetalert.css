@@ -1132,3 +1132,7 @@ body.swal2-toast-shown .swal2-container.swal2-bottom-end,
 body.swal2-toast-shown .swal2-container.swal2-bottom-right {
   inset: auto 0 0 auto;
 }
+.swal2-popup {
+  font-size: 1.0rem !important;
+  font-family: Verdana, sans-serif, serif !important;
+}
