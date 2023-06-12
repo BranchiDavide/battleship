@@ -1,15 +1,19 @@
 module.exports = class Game{
-    constructor(player1, player2, io){
+    constructor(player1, player2, io, castedRoomNumber){
         this.player1 = player1;
         this.player2 = player2;
         this.io = io;
         this.startGame();
+        if(castedRoomNumber != null){
+            console.log("Game started in room: " + this.room + " ---> " + castedRoomNumber);
+        }else{
+            console.log("Game started in room: " + this.room);
+        }
         this.disconnectListeners();
     }
     startGame(){
         this.room = this.player1.id;
         this.player2.join(this.room);
-        console.log("Game started in room: " + this.room);
         this.io.to(this.room).emit("game-start");
         let allReady = 0; //0 players are ready
         let allReadySent = false; //effective-game-start has been already sent

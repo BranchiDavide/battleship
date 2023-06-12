@@ -199,3 +199,11 @@
 .end-div h4 a:hover{
   opacity: 0.6;
 }
+.roomDiv{
+  display: none;
+  text-align: center;
+  font-family: "DMSans-Regular";
+}
+.roomSpan{
+  color: red;
+}
