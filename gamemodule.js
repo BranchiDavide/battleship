@@ -11,10 +11,18 @@ module.exports = class Game{
         }
         this.disconnectListeners();
     }
-    startGame(){
+    async startGame(){
         this.room = this.player1.id;
         this.player2.join(this.room);
         this.io.to(this.room).emit("game-start");
+        this.player1.emit("request-nick");
+        await this.waitForResponse(this.player1, "send-nick").then((response) => {
+            this.player2.emit("show-nick", response);
+        });
+        this.player2.emit("request-nick");
+        await this.waitForResponse(this.player2, "send-nick").then((response) => {
+            this.player1.emit("show-nick", response);
+        });
         let allReady = 0; //0 players are ready
         let allReadySent = false; //effective-game-start has been already sent
         this.player1.on("ready", () =>{
