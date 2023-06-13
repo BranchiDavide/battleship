@@ -206,4 +206,22 @@
 }
 .roomSpan{
   color: red;
+  font-weight: bold;
+}
+.nick-span{
+  color: blue;
+  font-size: 16px;
+  font-family: "ArchivoBlack-Regular";
+}
+.vs-span{
+  font-size: 22px;
+  font-family: "ArchivoBlack-Regular";
+}
+.opp-nick-span{
+  color: red;
+  font-size: 16px;
+  font-family: "ArchivoBlack-Regular";
+}
+.nick-div{
+  display: none;
 }

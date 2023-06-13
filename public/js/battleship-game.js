@@ -1,3 +1,7 @@
+let nick = sessionStorage.getItem("nick")
+if(nick == null){
+    nick = "Unknown player"
+}
 let socket = io({query:{room: sessionStorage.getItem("room"), join: sessionStorage.getItem("join")}});
 let cover = document.getElementById("cover");
 let roomDiv = document.getElementsByClassName("roomDiv")[0];
@@ -9,6 +13,9 @@ let timerDiv = document.getElementsByClassName("timerDiv")[0];
 let timerH = timerDiv.getElementsByTagName("h2")[0];
 let readyBtn = document.getElementsByClassName("status-span")[0];
 let readyBtnOpponent = document.getElementsByClassName("status-span")[1];
+let nickDiv = document.getElementsByClassName("nick-div")[0];
+let opponentNick = document.getElementsByClassName("opp-nick-span")[0];
+let personalNick = document.getElementsByClassName("nick-span")[0];
 let winDiv = document.getElementById("winDiv");
 let loseDiv = document.getElementById("loseDiv");
 let placeTime = 60; // Time to place the ships (in s)
@@ -26,10 +33,18 @@ socket.on("room-number", (roomNumber) => {
     roomSpan.innerHTML = roomNumber;
 });
 socket.on("404-room", (roomNumber) => {
-    showErrorAlertSub("Room " + roomNumber + " not found!", "Redirection to homepage in 5s");
+    showErrorAlertSub(`Room "` + roomNumber + `" not found!`, "Redirection to homepage in 5s");
     setTimeout(() =>{
         window.location.href = "/";
     }, 5000);
+});
+socket.on("show-nick", (nickOpponent) => {
+    nickDiv.style.display = "block";
+    personalNick.innerHTML = nick;
+    opponentNick.innerHTML = nickOpponent;
+});
+socket.on("request-nick", ()=>{
+    socket.emit("send-nick", nick);
 });
 let redirectionTime = 5;
 let redirectInterval;
