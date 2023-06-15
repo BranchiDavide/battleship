@@ -1,3 +1,8 @@
+/**
+ * Script per gestire gli eventi della home page.
+ * 
+ * @author Davide Branchi
+ */
 let playOnlineBtn = document.getElementById("btn-plo");
 playOnlineBtn.addEventListener("click", () => {
   let responsiveVal = "";

@@ -1,3 +1,9 @@
+/**
+ * Script per gestire tutto ciò che riguarda il posizionamento e la
+ * rimozione della navi.
+ * 
+ * @author Davide Branchi
+ */
 let mainTable = document.getElementById("battleshipMainTable");
 let ships = document.querySelectorAll(`[class*="ship-"]`);
 let removeIcons = document.getElementsByClassName("removeImg");
@@ -46,6 +52,10 @@ for (let ship of ships) {
     elementsListeners.push(ship);
     elementsListeners.push(shipSelectionListener);
 }
+/**
+ * Funzione per gestire la selezione di una nave.
+ * @param event evento
+ */
 function shipSelectionListener(event) {
     if (event.target.tagName != "IMG") {
         let validShip = true;
@@ -78,7 +88,13 @@ for (let i = 0; i < mtTd.length; i++) {
         elementsListeners.push(listener);
     }
 }
-//Function executed when a td is pressed for placing ships with all controls
+/**
+ * Funzione eseguita quando l'utente preme su una cella della tabella,
+ * vengono effettuati tutti i controlli necessari per verificare che la cella
+ * sia valida ecc..
+ * @param i riga della tabella
+ * @param j colonna della tabella
+ */
 function placeShipEvent(i, j) {
     return function () {
         if (shipSelected != "") {
@@ -183,7 +199,11 @@ function placeShipEvent(i, j) {
         }
     };
 }
-//Function for placing the ship
+/**
+ * Funzione per piazzare concretamenta la nave sulla tabella
+ * @param i riga della tabella
+ * @param j colonna della tabella
+ */
 function place(i, j) {
     mtTd[i][j].classList.add("boat-cell");
     lastPlaceCoords.push(i);
@@ -204,7 +224,10 @@ for (let i = 0; i < removeIcons.length; i++) {
         }
     });
 }
-//Function for removing a ship
+/**
+ * Funzione per rimuovere una nave dalla tabella.
+ * @param index indice della nave da rimuovere
+ */
 function removeShip(index) {
     let removeCoords = placedCoords[index];
     placedCoords[index] = [];
