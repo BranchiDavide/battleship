@@ -1,3 +1,9 @@
+/**
+ * Script per gestire la comunicazione con il server durante la partita
+ * tramite i WebSocket.
+ * 
+ * @author Davide Branchi
+ */
 let nick = sessionStorage.getItem("nick")
 if(nick == null){
     nick = "Unknown player"
@@ -51,6 +57,9 @@ let redirectInterval;
 socket.on("opponent-disconnect", () => {
     redirectInterval = setInterval(opponentDisconnect, 1000);
 });
+/**
+ * Funzione per gestire il timer per piazzare le navi all'inizio della partita.
+ */
 function placeTimer() {
     let minutes = Math.floor(placeTime / 60);
     let seconds = placeTime % 60;
@@ -118,6 +127,9 @@ socket.on("turn-data-response", (data) =>{
 socket.on("mark-mtTd", (response) =>{
     mtTd[response[0]][response[1]].classList.add(response[2]);
 });
+/**
+ * Funzione per inviare i dati del turno al server (cella selezionata sulla tabella dell'avversario)
+ */
 function sendTurnData(){
     socket.emit("turn-data", cellSelected);
 }

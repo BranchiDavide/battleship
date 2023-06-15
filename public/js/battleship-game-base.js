@@ -1,6 +1,14 @@
+/**
+ * Script con le funzioni di base che vengono utilizzate durante la partita.
+ * 
+ * @author Davide Branchi
+ */
 let opponentTable = document.getElementById("battleshipOpponentTable");
 let oTd = [];
 let actualOpponentTable = [];
+/**
+ * Funzione per la disconnessione dell'utente
+ */
 function opponentDisconnect() {
     if (redirectionTime > 0) {
         cover.getElementsByTagName("h1")[0].innerHTML = `The opponent has disconnected<br>Redirection to homepage in ${redirectionTime}s`;
@@ -14,7 +22,9 @@ function opponentDisconnect() {
         window.location.href = "/";
     }
 }
-//Remove the listeners
+/**
+ * Funzione per rimuovere gli EventListener datta tabella del giocatore.
+ */
 function removePlacingListeners() {
     for (let i = 0; i < elementsListeners.length; i += 2) {
         elementsListeners[i].removeEventListener("click", elementsListeners[i + 1]);
@@ -27,7 +37,9 @@ function removePlacingListeners() {
     }
 }
 let shipsRemaining;
-//Placing the remaining ships randomly
+/**
+ * Funzione per piazzare randomicamente le navi rimaste dopo lo scadere del tempo.
+ */
 function placeRemainingShips() {
     if (placedShips.length != ships.length) {
         //Not all ships have been placed
@@ -145,6 +157,10 @@ function placeRemainingShips() {
     }
 }
 
+/**
+ * Funzione per rimuovere una nave rimanente dalle navi che devono ancora essere posizionate
+ * @param s nave
+ */
 function removeRemainingShip(s) {
     let newShipsRemaining = [];
     for (let ship of shipsRemaining) {
@@ -160,6 +176,11 @@ function random(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
+/**
+ * Funzione per piazzare concretamenta la nave sulla tabella
+ * @param i riga della tabella
+ * @param j colonna della tabella
+ */
 function placeShip(i, j) {
     if (i < 0 || i > 9 || j < 0 || j > 9) {
         return false;
@@ -267,6 +288,10 @@ function placeShip(i, j) {
     return true;
 }
 let turnTimerTime = 10;
+/**
+ * Funzione che imposta gli Event Listener per il click
+ * dell'utente su una cella della tabella dell'avversario.
+ */
 function setOpponentTableListeners(){
     let trs = opponentTable.getElementsByTagName("tr");
     let tmpI = 0;
@@ -301,6 +326,9 @@ function setOpponentTableListeners(){
         }
     }
 }
+/**
+ * Funzione per gestire il timer del turno
+ */
 function turnTimer(){
     if(turnTimerTime > 0){
         timer.style.visibility = "visible";

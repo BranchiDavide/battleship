@@ -1,4 +1,18 @@
+/**
+ * Classe Game. Questa classe gestisce tutto ciò che riguarda il gioco
+ * della battaglia navale.
+ * Si occupa anche di dialogare con i due giocatori tramite i WebSocket.
+ * 
+ * @author Davide Branchi
+ */
 module.exports = class Game{
+    /**
+     * Costruttore della classe
+     * @param player1 WebSocket del giocatore 1
+     * @param player2 WebSocket del giocatore 2
+     * @param io oggetto per dialogare con entrambi i WebSocket
+     * @param castedRoomNumber Numero della stanza trasformato rispetto al socket id
+     */
     constructor(player1, player2, io, castedRoomNumber){
         this.player1 = player1;
         this.player2 = player2;
@@ -11,6 +25,9 @@ module.exports = class Game{
         }
         this.disconnectListeners();
     }
+    /**
+     * Funzione per avviare la partita
+     */
     async startGame(){
         this.room = this.player1.id;
         this.player2.join(this.room);
@@ -46,6 +63,10 @@ module.exports = class Game{
             }
         });
     }
+    /**
+     * Funzione in cui vengono definite le azioni da fare in caso uno
+     * dei due giocatori si disconnettesse dalla partita.
+     */
     disconnectListeners(){
         this.player1.on("disconnect", () =>{
             this.player2.emit("opponent-disconnect");
@@ -56,6 +77,9 @@ module.exports = class Game{
             this.player1.disconnect();
         });
     }
+    /**
+     * Funzione invocate all effettivo avvio della partita
+     */
     async effectiveGameStart(){
         this.player1.emit("request-start-data");
         await this.waitForResponse(this.player1, "start-data").then((response) => {
@@ -67,6 +91,11 @@ module.exports = class Game{
         });
         this.gameLoop();
     }
+    /**
+     * Funzione per far rimanere in attasa di una risposta da un WebSocket
+     * @param socket WebSocket da cui attendere la risposta
+     * @param event evento da attendere
+     */
     waitForResponse(socket, event) {
         return new Promise((resolve, reject) => {
           socket.on(event, (response) => {
@@ -74,6 +103,10 @@ module.exports = class Game{
           });
         });
     }
+    /**
+     * Funzione contenente il ciclo del gioco con i controlli per verificare
+     * se un giocatore ha vinto.
+     */
     async gameLoop(){
         let gameVaild = true;
         let turnSwitch = true;
@@ -113,6 +146,12 @@ module.exports = class Game{
             }
         }
     }
+    /**
+     * Controlla la cella passata sulla griglia del giocatore 1
+     * @param i riga della griglia
+     * @param j colonna della griglia
+     * @returns stringa corrispondente allo stato della cella
+     */
     checkCellPlayer1(i, j){
         if(this.player1Table[i][j] == "X"){
             this.player1Table[i][j] = "*";
@@ -122,6 +161,12 @@ module.exports = class Game{
             return "miss-cell";
         }
     }
+    /**
+     * Controlla la cella passata sulla griglia del giocatore 2
+     * @param i riga della griglia
+     * @param j colonna della griglia
+     * @returns stringa corrispondente allo stato della cella
+     */
     checkCellPlayer2(i, j){
         if(this.player2Table[i][j] == "X"){
             this.player2Table[i][j] = "*";
@@ -131,6 +176,11 @@ module.exports = class Game{
             return "miss-cell";
         }
     }
+     /**
+     * Controlla la griglia del giocatore 2 per verificare se il giocatore 1
+     * ha vinto abbattendo tutte le navi
+     * @returns true in caso di vincita, false altrimenti
+     */
     checkWinForPlayer1(){
         let win = true;
         for(let i = 0; i < this.player2Table.length; i++){
@@ -142,6 +192,11 @@ module.exports = class Game{
         }
         return win;
     }
+    /**
+     * Controlla la griglia del giocatore 1 per verificare se il giocatore 2
+     * ha vinto abbattendo tutte le navi
+     * @returns true in caso di vincita, false altrimenti
+     */
     checkWinForPlayer2(){
         let win = true;
         for(let i = 0; i < this.player1Table.length; i++){
