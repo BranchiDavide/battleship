@@ -1,24 +1,48 @@
 .blue-span {
   color: blue;
 }
+
 .orange-span {
   color: orange;
 }
+
+h1{
+  font-size: 4vw;
+  text-shadow: 0.1vw 0.2vw rgba(0,0,0,0.56)
+}
+
 #btn-plo {
-  padding: 10px 20px;
-  font-size: 16px;
+  padding: 1vw 1.7vw;
+  font-size: 1.6vw;
   color: white;
   background-color: orange;
-  border-radius: 5px;
+  border-radius:1vw;
   border: none;
   box-shadow: 0 0 10px rgba(255, 165, 0);
   animation: pulse 2s ease-in-out infinite;
   transition: transform 0.3s ease-in-out;
   font-family: "PermanentMarker-Regular";
-  font-size: 20px;
 }
 
 #btn-plo:hover {
+  opacity: 0.7;
+  cursor: pointer;
+  transition: 0.5s ease-in-out;
+}
+
+#btn-hel {
+  padding: 1vw 1.7vw;
+  font-size: 1.2vw;
+  color: white;
+  margin: 2vw;
+  background-color: blue;
+  border-radius:1vw;
+  border: none;
+  box-shadow: 0 0 10px rgba(0, 150, 255);
+  font-family: "PermanentMarker-Regular";
+}
+
+#btn-hel:hover {
   opacity: 0.7;
   cursor: pointer;
   transition: 0.5s ease-in-out;
@@ -29,15 +53,35 @@
     transform: scale(1);
     box-shadow: 0 0 10px rgba(255, 165, 0);
   }
+
   50% {
     transform: scale(1.2);
     box-shadow: 0 0 20px rgba(255, 165, 0);
   }
+
   100% {
     transform: scale(1);
     box-shadow: 0 0 10px rgba(255, 165, 0);
   }
 }
+
+@keyframes pulseHelp {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 10px rgba(0, 150, 255);
+  }
+
+  50% {
+    transform: scale(1.2);
+    box-shadow: 0 0 20px rgba(0, 150, 255);
+  }
+
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 10px rgba(0, 150, 255);
+  }
+}
+
 @font-face {
   src: url("../fonts/PermanentMarker-Regular.ttf");
   font-family: "PermanentMarker-Regular";
@@ -45,14 +89,28 @@
 .rotated-image {
   font-family: "PermanentMarker-Regular";
   font-size: 26px;
-  width: 500px;
+  width: 40vw;
   height: 500px;
   display: flex;
+  margin: auto;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  position: relative;
+
+  position: absolute;
+  top: 50%;
+  transform: translate(0, -50%);
+
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.1));
+  backdrop-filter: blur(21px);
+  -webkit-backdrop-filter: blur(21px);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.36);
+  border: 0.2vw solid rgba(255, 255, 255, 0.16);
+  border-radius: 2vw;
+  width: 40vw;
+  text-align: center;
 }
+
 body {
   display: flex;
   justify-content: center;
@@ -65,14 +123,39 @@ body {
   background-position: center;
   background-attachment: fixed;
 }
+
 @media only screen and (max-width: 768px) {
-  .rotated-image{
+  .rotated-image {
     margin: 0;
-    width: 100%;
+    width: 80%;
     display: flex;
     justify-content: center;
+    border-radius: 5vw;
   }
+  #btn-hel {
+    margin: 6vw;
+  }
+
+
+  h1{
+    font-size: 13vw;
+    line-height: 12vw;
+  }
+  
+  #btn-plo {
+    padding: 2vw 2vw;
+    font-size: 6vw;
+    border-radius:2vw;
+  }
+
+  #btn-hel {
+    padding: 1vw 6vw;
+    font-size: 5vw;
+    border-radius:2vw;
+  }
+
 }
+
 .selection-button {
   display: inline-block;
   padding: 10px 20px;
@@ -90,6 +173,7 @@ body {
 .selection-button:hover {
   background-color: #0056b3;
 }
+
 .selection-button:active {
   background-color: #004080;
 }

@@ -48,3 +48,24 @@ playOnlineBtn.addEventListener("click", () => {
     });
   }
 });
+
+let helpButton = document.getElementById("btn-hel");
+helpButton.addEventListener("click", () => {
+  let responsiveVal = "";
+  if (window.innerWidth <= 768) {
+    responsiveVal = "<br><br>"
+  }
+  Swal.fire({
+    class: "helppop",
+    title: "How to play",
+    icon: "info",
+    html: `
+    <p style='text-align:justify'>In the beginning phase of the game the two players have 60 seconds to arrange the ships in their grid.
+    At the end of this phase the first player selects a cell where he thinks there is an enemy ship, if the selected cell contains the ship then it will be hit.
+    Once the first player has made his choice, the turn passes to the opponent who will do the same.
+    The player who destroys all the opposing ships first wins the game.<p>
+    `,
+    showCancelButton: true,
+    showConfirmButton: false,
+  });
+});
