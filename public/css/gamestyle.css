@@ -225,3 +225,8 @@
 .nick-div{
   display: none;
 }
+#rem-ships{
+  display: none;
+  text-align: center;
+  font-family: "ArchivoBlack-Regular";
+}

@@ -24,6 +24,8 @@ let opponentNick = document.getElementsByClassName("opp-nick-span")[0];
 let personalNick = document.getElementsByClassName("nick-span")[0];
 let winDiv = document.getElementById("winDiv");
 let loseDiv = document.getElementById("loseDiv");
+let leftP = document.getElementById("rem-ships");
+let leftSpan = document.getElementById("cells-hit-left");
 let placeTime = 60; // Time to place the ships (in s)
 let placeTimerInterval;
 let turn = false;
@@ -102,6 +104,7 @@ socket.on("effective-game-start", () =>{
     placeTime = 0;
     statusDivs[0].style.display = "none";
     statusDivs[1].style.display = "none";
+    leftP.style.display = "block";
     setOpponentTableListeners();
 });
 function sleep(ms) {
@@ -123,6 +126,13 @@ socket.on("turn", () =>{
 });
 socket.on("turn-data-response", (data) =>{
     oTd[cellSelected[0]][cellSelected[1]].classList.add(data);
+    if(data == "hit-cell"){
+        let left = parseInt(leftSpan.innerHTML) - 1;
+        if(left <= 5){
+            leftSpan.style.color = "red";
+        }
+        leftSpan.innerHTML = parseInt(leftSpan.innerHTML) - 1;
+    }
 });
 socket.on("mark-mtTd", (response) =>{
     mtTd[response[0]][response[1]].classList.add(response[2]);
